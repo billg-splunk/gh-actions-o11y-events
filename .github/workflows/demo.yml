@@ -27,7 +27,7 @@ jobs:
 
       # Get epoch
       - name: Get Time (epoch)
-        run: EPOCH_TS=$(date "+%s000")
+        run: echo "EPOCH_TS=$(date '+%s000')" >> $GITHUB_ENV
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
@@ -50,5 +50,5 @@ jobs:
           curl -X POST 'https://ingest.us1.signalfx.com/v2/event' \
              -H 'Content-Type: application/json' \
              -H 'X-SF-Token: ${{ secrets.INGEST_TOKEN }}' \
-             -d '[{ "category": "USER_DEFINED", "eventType": "test_event", "dimensions": { "environment": "production", "service": "API" }, "timestamp": $EPOCH_TS }]'
+             -d '[{ "category": "USER_DEFINED", "eventType": "test_event", "dimensions": { "environment": "production", "service": "API" }, "timestamp": $env.EPOCH_TS }]'
 
