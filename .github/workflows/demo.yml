@@ -40,7 +40,7 @@ jobs:
           curl -X POST 'https://ingest.us1.signalfx.com/v2/event' \
              -H 'Content-Type: application/json' \
              -H 'X-SF-Token: ${{ secrets.INGEST_TOKEN }}' \
-             -d '[{ "category": "USER_DEFINED", "eventType": "FAIL: xxx", "dimensions": { "environment": "production", "service": "API" }, "timestamp": ${{ env.EPOCH_TS }} }]'
+             -d '[{ "category": "USER_DEFINED", "eventType": "testevent: FAIL", "dimensions": { "environment": "production", "service": "API" }, "timestamp": ${{ env.EPOCH_TS }} }]'
 
       # Run if it was successful
       - name: The job has succeeded
@@ -50,5 +50,5 @@ jobs:
           curl -X POST 'https://ingest.us1.signalfx.com/v2/event' \
              -H 'Content-Type: application/json' \
              -H 'X-SF-Token: ${{ secrets.INGEST_TOKEN }}' \
-             -d '[{ "category": "USER_DEFINED", "eventType": "PASS: xxx", "dimensions": { "environment": "production", "service": "API" }, "timestamp": ${{ env.EPOCH_TS }} }]'
+             -d '[{ "category": "USER_DEFINED", "eventType": "testevent: PASS", "dimensions": { "environment": "production", "service": "API" }, "timestamp": ${{ env.EPOCH_TS }} }]'
 
