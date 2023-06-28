@@ -41,12 +41,10 @@ jobs:
       # Run if it was successful
       - name: The job has succeeded
         if: ${{ success() }}
-        env:
-          INGEST_TOKEN: ${{ secrets.INGEST_TOKEN }}
         run: |
           #echo $env:INGEST_TOKEN
           curl -X POST "https://ingest.us1.signalfx.com/v2/event" \
              -H "Content-Type: application/json" \
-             -H "X-SF-Token: $env:INGEST_TOKEN" \
+             -H "X-SF-Token: ${{ secrets.GITHUB_TOKEN }}" \
              -d '[{ "category": "USER_DEFINED", "eventType": "test_event", "dimensions": { "environment": "production", "service": "API" }, "timestamp": 1687982389000 }]'
 
