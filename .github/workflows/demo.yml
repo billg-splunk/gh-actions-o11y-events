@@ -27,7 +27,7 @@ jobs:
 
       # Get epoch
       - name: Get Time (epoch)
-        run: EPOCH_TS=date "+%s000"
+        run: EPOCH_TS=$(date "+%s000")
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
