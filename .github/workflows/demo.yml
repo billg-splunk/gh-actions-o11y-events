@@ -27,10 +27,23 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: ./script.sh
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      # Run if it failed
+      - name: The job has failed 
+        if: ${{ failure() }}
+        run: curl -X POST "https://ingest.{REALM}.signalfx.com/v2/event" \
+             -H "Content-Type: application/json" \
+             -H "X-SF-Token: <value>" \
+             -d '[{ "category": "USER_DEFINED", "eventType": "test_event", "dimensions": { "environment": "production", "service": "API" }, "properties": { "sha1": "1234567890abc" }, "timestamp": 1556793030000 } ]'
+
+      # Run if it was successful
+      - name: The job has succeeded
+        if: ${{ success() }}
+        env:
+          INGEST_TOKEN: ${{ secrets.INGEST_TOKEN }}
+        run: curl -X POST "https://ingest.us1.signalfx.com/v2/event" \
+             -H "Content-Type: application/json" \
+             -H "X-SF-Token: $env:INGEST_TOKEN" \
+                                     -d '[{ "category": "USER_DEFINED", "eventType": "test_event", "dimensions": { "environment": "production", "service": "API" }, "timestamp": 1687981212 ]'
+
