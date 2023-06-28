@@ -45,6 +45,6 @@ jobs:
           #echo $env:INGEST_TOKEN
           curl -X POST 'https://ingest.us1.signalfx.com/v2/event' \
              -H 'Content-Type: application/json' \
-             -H 'X-SF-Token: ${{ secrets.GITHUB_TOKEN }}' \
-             -d '[{ "category": "USER_DEFINED", "eventType": "test_event", "dimensions": { "environment": "production", "service": "API" }, "timestamp": 1687982389000 }]'
+             -H 'X-SF-Token: ${{ secrets.INGEST_TOKEN }}' \
+             -d '[{ "category": "USER_DEFINED", "eventType": "test_event", "dimensions": { "environment": "production", "service": "API" }, "timestamp": 1687983088000 }]'
 
